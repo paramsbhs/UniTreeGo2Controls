@@ -1,0 +1,35 @@
+# Robot description and conventions. See docs/robot_model.md.
+# Canonical ordering is defined HERE, not by the MJCF. The env builds explicit
+# index maps from these names and fails loudly if the model disagrees.
+
+scene: models/go2/scene.xml
+home_keyframe: home
+
+legs: [FL, FR, RL, RR]
+joint_names:            # canonical order: per leg (FL, FR, RL, RR), hip -> thigh -> calf
+  - FL_hip_joint
+  - FL_thigh_joint
+  - FL_calf_joint
+  - FR_hip_joint
+  - FR_thigh_joint
+  - FR_calf_joint
+  - RL_hip_joint
+  - RL_thigh_joint
+  - RL_calf_joint
+  - RR_hip_joint
+  - RR_thigh_joint
+  - RR_calf_joint
+
+foot_geoms: [FL, FR, RL, RR]   # sphere collision geoms at the feet (MJCF names)
+floor_geom: floor
+imu_site: imu
+
+mass: 15.21               # kg, total (MJCF). The Unitree URDF says 16.09 - see docs/robot_model.md
+
+geometry:
+  thigh_length: 0.213   # m, hip-pitch axis to knee axis
+  calf_length: 0.213    # m, knee axis to foot-sphere centre
+  foot_radius: 0.022    # m
+
+contact:
+  force_threshold: 5.0  # N, normal force above which a foot counts as in contact

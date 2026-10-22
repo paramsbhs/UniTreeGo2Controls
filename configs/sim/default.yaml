@@ -1,0 +1,8 @@
+timestep: 0.002          # s, physics step (500 Hz). Overrides the MJCF value at load time.
+control_decimation: 1    # physics steps per control step -> control rate = 1 / (timestep * decimation)
+seed: 0
+
+# Randomisation applied in reset(seed). Set to 0 for a bit-exact nominal start.
+init_noise:
+  joint_pos_std: 0.02    # rad
+  base_height_std: 0.0   # m

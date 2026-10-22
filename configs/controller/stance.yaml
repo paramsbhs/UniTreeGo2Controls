@@ -1,0 +1,20 @@
+# Phase 1 stance controller: joint-space PD around a height-parameterised pose.
+
+gains:                   # per joint type, applied to every leg
+  hip:   { kp: 60.0, kd: 2.0 }
+  thigh: { kp: 60.0, kd: 2.0 }
+  calf:  { kp: 80.0, kd: 2.5 }
+
+nominal_height: 0.27     # m, desired base height (matches the 'home' keyframe)
+height_limits: [0.16, 0.36]
+height_rate_limit: 0.15  # m/s, max speed of the height setpoint (smoothing)
+static_load_ff: true     # knee feedforward for body weight (removes most PD sag)
+height_ki: 1.5           # 1/s, integral action on height error (removes PD sag)
+height_i_limit: 0.03     # m, anti-windup clamp on the integral correction
+
+startup_ramp: 0.5        # s, joint targets blend from the measured pose (min-jerk)
+joint_limit_margin: 0.05 # rad, targets are clamped this far inside the joint range
+
+safety:
+  max_tilt: 0.6          # rad, roll or pitch beyond this is a fall
+  min_height: 0.10       # m
